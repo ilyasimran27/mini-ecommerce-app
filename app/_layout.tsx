@@ -1,24 +1,93 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
+import { router, Stack } from "expo-router";
+import { Alert, Text, TouchableOpacity } from "react-native";
+import { CartProvider } from "../src/context/CartContext";
+import { logoutUser } from "../src/services/authService";
 
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
+const handleHeaderLogout = () => {
+  Alert.alert("Logout", "Are you sure you want to logout?", [
+    { text: "Cancel", style: "cancel" },
+    {
+      text: "Logout",
+      onPress: async () => {
+        const result = await logoutUser();
+        if (result.success) {
+          router.replace("/");
+        } else {
+          Alert.alert("Error", result.error);
+        }
+      },
+    },
+  ]);
 };
 
-export default function RootLayout() {
-  const colorScheme = useColorScheme();
+const LogoutButton = () => (
+  <TouchableOpacity
+    style={{
+      backgroundColor: "#dc3545",
+      paddingHorizontal: 12,
+      paddingVertical: 6,
+      borderRadius: 6,
+      marginRight: 10,
+    }}
+    onPress={handleHeaderLogout}
+  >
+    <Text style={{ color: "white", fontWeight: "bold", fontSize: 14 }}>
+      Logout
+    </Text>
+  </TouchableOpacity>
+);
 
+export default function RootLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <CartProvider>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        <Stack.Screen
+          name="index"
+          options={{
+            headerShown: false,
+            title: "Login",
+          }}
+        />
+        <Stack.Screen
+          name="register"
+          options={{
+            title: "Register",
+            headerBackTitle: "Login",
+          }}
+        />
+        <Stack.Screen
+          name="product-list"
+          options={{
+            title: "Products",
+            headerBackTitle: "Back",
+            headerRight: () => <LogoutButton />,
+          }}
+        />
+        <Stack.Screen
+          name="product-detail"
+          options={{
+            title: "Product Details",
+            headerBackTitle: "Back",
+            headerRight: () => <LogoutButton />,
+          }}
+        />
+        <Stack.Screen
+          name="cart"
+          options={{
+            title: "Shopping Cart",
+            headerBackTitle: "Back",
+            headerRight: () => <LogoutButton />,
+          }}
+        />
+        <Stack.Screen
+          name="checkout"
+          options={{
+            title: "Checkout",
+            headerBackTitle: "Cart",
+            headerRight: () => <LogoutButton />,
+          }}
+        />
       </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    </CartProvider>
   );
 }
