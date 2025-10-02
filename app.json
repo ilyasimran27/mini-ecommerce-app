@@ -11,8 +11,9 @@
     "ios": {
       "supportsTablet": true
     },
-    "android": {},
-
+    "android": {
+      "package": "com.imran23456.MiniEcommerceApp"
+    },
     "plugins": [
       "expo-router",
       [
@@ -35,7 +36,7 @@
     "extra": {
       "router": {},
       "eas": {
-        "projectId": ""
+        "projectId": "fe3ee67d-7434-4083-aac1-223ce43c6270"
       }
     }
   }
