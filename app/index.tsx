@@ -82,11 +82,6 @@ export default function LoginScreen() {
     }
   };
 
-  const useDemoCredentials = () => {
-    setEmail("demo@example.com");
-    setPassword("password123");
-  };
-
   if (checkingAuth) {
     return (
       <View style={styles.container}>
@@ -128,10 +123,6 @@ export default function LoginScreen() {
         ) : (
           <Text style={styles.buttonText}>Login</Text>
         )}
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.demoButton} onPress={useDemoCredentials}>
-        <Text style={styles.demoButtonText}>Use Demo Credentials</Text>
       </TouchableOpacity>
 
       <TouchableOpacity
