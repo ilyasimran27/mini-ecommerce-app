@@ -1,50 +1,177 @@
-# Welcome to your Expo app 👋
+E-Commerce Mobile App
+A modern React Native e-commerce application built with Expo, Firebase, and EAS Build.
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+🚀 Features
+✅ User Authentication with Firebase Auth
 
-## Get started
+✅ Product Catalog from Fake Store API
 
-1. Install dependencies
+✅ Search & Category Filtering
 
-   ```bash
-   npm install
-   ```
+✅ Shopping Cart with Persistent Storage
 
-2. Start the app
+✅ Product Details & Add to Cart
 
-   ```bash
-   npx expo start
-   ```
+✅ Responsive Design
 
-In the output, you'll find options to open the app in a
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+📋 Prerequisites
+Before you begin, ensure you have:
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Node.js (v20 or higher)
 
-## Get a fresh project
+npm or yarn
 
-When you're ready, run:
+Expo CLI
 
-```bash
-npm run reset-project
-```
+EAS CLI
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Firebase account
 
-## Learn more
+Android Studio (for Android development)
 
-To learn more about developing your project with Expo, look at the following resources:
+🛠️ Installation & Setup
+1. Clone and Install Dependencies
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+# Clone the repository
+git clone https://github.com/ilyasimran27/mini-ecommerce-app.git
+cd MiniEcommerceApp
 
-## Join the community
+# Install dependencies
+npm install
 
-Join our community of developers creating universal apps.
+# Install Expo CLI globally
+npm install -g expo-cli
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+2. EAS Build Configuration
+
+   Step 1: Login to Expo
+   eas login
+
+   Step 2: Configure EAS
+   eas init
+
+   Step 3: Update eas.json
+   Make sure your eas.json looks like this:
+
+ {
+  "cli": {
+    "version": ">= 16.17.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}
+
+
+Step 4: Update app.json
+
+Make sure your app.json is properly configured:
+
+{
+  "expo": {
+    "name": "MiniEcommerceApp",
+    "slug": "MiniEcommerceApp",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "miniecommerceapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundImage": "./assets/images/android-icon-background.png",
+        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": false,
+      "package": "com.imran23456.MiniEcommerceApp"
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "fe3ee67d-7434-4083-aac1-223ce43c6270"
+      }
+    }
+  }
+}
+
+Project Structure
+
+MiniEcommerceApp/
+├── app/                    # Expo Router file-based routing
+│   ├── _layout.tsx        # Root layout with navigation
+│   ├── index.tsx          # Login screen
+│   ├── register.tsx       # Registration screen
+│   ├── product-list.tsx   # Product listing
+│   ├── product-detail.tsx # Product details
+│   ├── cart.tsx           # Shopping cart
+│   └── checkout.tsx       # Checkout screen
+├── src/
+│   ├── context/
+│   │   └── CartContext.js # Cart state management
+│   └── services/
+│       └── authService.js # Firebase auth services
+├── assets/                # App icons and images
+├── firebase.js           # Firebase configuration
+├── app.json             # Expo configuration
+├── eas.json             # EAS Build configuration
+└── package.json         # Dependencies
+
+
+Development
+
+Start Development Server
+
+
+# Start Expo development server
+npx expo start
+
+# Or with clear cache
+npx expo start -c
+
+Build with EAS
+Development Build
+
+eas build --platform android --profile development
+   
+
+
